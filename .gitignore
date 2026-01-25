@@ -28,6 +28,9 @@ DE_Homework_W1-2/temp_logs/
 # Ignore Docker/Postgres runtime data
 pipeline/pgadmin_data/
 pipeline/postgres_data/
+pipeline/kestra_data/
+pipeline/kestra_postgres_data/
+
 
 # Virtual environments
 pipeline/.venv/
