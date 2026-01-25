@@ -1,3 +1,14 @@
+# Ignore large data and environment files in pipeline and DE_Homework_W1-2
+pipeline/pgadmin_data/
+pipeline/postgres_data/
+pipeline/.env
+DE_Homework_W1-2/.env
+# Ignore Terraform state and config
+DE_Homework_W1-2/terra_ass/.terraform/
+DE_Homework_W1-2/terra_ass/.terraform.lock.hcl
+DE_Homework_W1-2/terra_ass/terraform.tfstate
+DE_Homework_W1-2/terra_ass/terraform.tfstate.backup
+DE_Homework_W1-2/terra_ass/keys/
 # Ignore Terraform local state and providers
 .terraform/
 *.tfstate
@@ -6,9 +17,13 @@ crash.log
 # Ignore service account keys for GC platform use in terraform
 Terademo/keys/
 
+
 # Ignore data and temp folders inside pipeline/
 pipeline/raw_data/
 pipeline/temp_logs/
+DE_Homework_W1-2/raw_data/
+DE_Homework_W1-2/temp_logs/
+
 
 # Ignore Docker/Postgres runtime data
 pipeline/pgadmin_data/
@@ -16,6 +31,10 @@ pipeline/postgres_data/
 
 # Virtual environments
 pipeline/.venv/
+DE_Homework_W1-2/.venv/
+
+# parquet files
+*.parquet
 
 # Python cache
 __pycache__/
