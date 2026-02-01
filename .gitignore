@@ -30,6 +30,9 @@ pipeline/pgadmin_data/
 pipeline/postgres_data/
 pipeline/kestra_data/
 pipeline/kestra_postgres_data/
+pipeline/kestra_secrets/
+pipeline/kestra_wd/
+
 
 
 # Virtual environments

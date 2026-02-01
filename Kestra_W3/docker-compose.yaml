@@ -106,5 +106,3 @@ networks:
 
 volumes:
   kestra_data:
-
-
