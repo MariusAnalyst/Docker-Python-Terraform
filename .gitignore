@@ -3,6 +3,7 @@ pipeline/pgadmin_data/
 pipeline/postgres_data/
 pipeline/.env
 DE_Homework_W1-2/.env
+Kestra_W3/.env
 # Ignore Terraform state and config
 DE_Homework_W1-2/terra_ass/.terraform/
 DE_Homework_W1-2/terra_ass/.terraform.lock.hcl
