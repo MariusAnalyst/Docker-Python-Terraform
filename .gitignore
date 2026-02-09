@@ -3,13 +3,14 @@ pipeline/pgadmin_data/
 pipeline/postgres_data/
 pipeline/.env
 DE_Homework_W1-2/.env
-Kestra_W3/.env
-# Ignore Terraform state and config
+*.env
+Kestra_W3/.env# Ignore Terraform state and config
 DE_Homework_W1-2/terra_ass/.terraform/
 DE_Homework_W1-2/terra_ass/.terraform.lock.hcl
 DE_Homework_W1-2/terra_ass/terraform.tfstate
 DE_Homework_W1-2/terra_ass/terraform.tfstate.backup
 DE_Homework_W1-2/terra_ass/keys/
+data_warehouse_w3/.terraform
 # Ignore Terraform local state and providers
 .terraform/
 *.tfstate
@@ -17,6 +18,8 @@ DE_Homework_W1-2/terra_ass/keys/
 crash.log
 # Ignore service account keys for GC platform use in terraform
 Terademo/keys/
+data_warehouse_w3/keys/
+
 
 
 # Ignore data and temp folders inside pipeline/
