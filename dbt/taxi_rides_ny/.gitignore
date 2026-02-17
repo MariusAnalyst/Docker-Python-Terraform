@@ -5,3 +5,5 @@ logs/
 
 # Data directory
 data/
+
+taxi_rides_ny.duckdb
