@@ -3,18 +3,10 @@ version: 2
 sources:
   - name: raw_data
     description: Raw taxi trip data from NYC TLC
-    database: |
-      {%- if target.type == 'bigquery' -%}
-        {{ env_var('GCP_PROJECT_ID', 'please-add-your-gcp-project-id-here') }}
-      {%- else -%}
-        taxi_rides_ny
-      {%- endif -%}
-    schema: |
-      {%- if target.type == 'bigquery' -%}
-        nytaxi
-      {%- else -%}
-        prod
-      {%- endif -%}
+    database: taxi_rides_ny
+ 
+    schema: prod
+
     freshness:
       warn_after: {count: 24, period: hour}
       error_after: {count: 48, period: hour}

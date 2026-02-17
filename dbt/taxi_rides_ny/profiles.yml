@@ -1,5 +1,5 @@
 taxi_rides_ny:
-  target: dev
+  target: prod
   outputs:
     # DuckDB Development profile
     dev:

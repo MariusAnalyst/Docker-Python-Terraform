@@ -37,6 +37,7 @@ vars:
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
   taxi_rides_ny:
+    +schema: prod   #  this forces all models into prod schema
     staging:
       +materialized: view
     intermediate:

@@ -10,6 +10,7 @@ DE_Homework_W1-2/terra_ass/.terraform.lock.hcl
 DE_Homework_W1-2/terra_ass/terraform.tfstate
 DE_Homework_W1-2/terra_ass/terraform.tfstate.backup
 DE_Homework_W1-2/terra_ass/keys/
+dbt/key/
 data_warehouse_w3/.terraform
 # Ignore Terraform local state and providers
 .terraform/
@@ -130,6 +131,25 @@ target/
 # IPython
 profile_default/
 ipython_config.py
+
+# Ignore all data files
+*.csv
+*.parquet
+*.gz
+*.zip
+*.json
+
+# Ignore local database files
+*.db
+*.duckdb
+
+# Ignore dbt logs and target folders (compiled code)
+logs/
+target/
+
+# Ignore credentials (CRITICAL)
+profiles.yml
+.env
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
