@@ -140,6 +140,7 @@ ipython_config.py
 *.json
 
 # Ignore local database files
+*.csv
 *.db
 *.duckdb
 
@@ -274,3 +275,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+.bruin.yml
+logs/runs
+logs/*.log
+logs/queries
