@@ -141,6 +141,7 @@ ipython_config.py
 
 # Ignore local database files
 *.csv
+*.csv.gv
 *.db
 *.duckdb
 
