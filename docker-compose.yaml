@@ -45,6 +45,8 @@ services:
     command: jobmanager
     environment:
       - jobmanager.rpc.address=jobmanager
+      - jobmanager.bind-host=0.0.0.0
+      - rest.address=0.0.0.0
 
   taskmanager:
     image: pyflink-workshop
@@ -57,7 +59,7 @@ services:
       - ./src/:/opt/src
     depends_on:
       - jobmanager
-    command: taskmanager --taskmanager.registration.timeout 5 min
+    command: taskmanager --taskmanager.registration.timeout 5min
     environment:
       - |
         FLINK_PROPERTIES=
