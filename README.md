@@ -115,7 +115,12 @@ Before running this project, ensure you have the following installed:
   ```bash
   docker exec -it streaming-postgres-1 psql -U postgres -c "SELECT window_start, total_tips FROM hourly_tips ORDER BY window_start DESC LIMIT 5;"
   ```
-- **Postgres CLI**: Access the database directly to run custom queries:
+- **Highest Hourly Tip Query**:
+  ```bash
+  docker exec -it streaming-postgres-1 psql -U postgres -c "SELECT window_start, total_tips FROM hourly_tips ORDER BY total_tips DESC LIMIT 1;"
+  ```
+- **Postgres CLI**:
+ Access the database directly to run custom queries:
   ```bash
   docker exec -it streaming-postgres-1 psql -U postgres
   ```
