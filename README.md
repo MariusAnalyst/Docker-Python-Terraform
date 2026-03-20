@@ -63,6 +63,9 @@ Before running this project, ensure you have the following installed:
 
    # Create table for session window job
    docker exec streaming-postgres-1 psql -U postgres -c "CREATE TABLE session_results (PULocationID BIGINT, num_trips BIGINT, session_start TIMESTAMP(3), session_end TIMESTAMP(3));"
+
+   # Create table for hourly tip analysis
+   docker exec streaming-postgres-1 psql -U postgres -c "CREATE TABLE hourly_tips (window_start TIMESTAMP(3), total_tips DOUBLE PRECISION);"
    ```
 
 3. Verify tables were created successfully:
@@ -80,6 +83,9 @@ Before running this project, ensure you have the following installed:
 
    # Option C: Session window aggregation (5-minute gap)
    docker exec -it streaming-jobmanager-1 flink run -py /opt/src/job/session_window_job.py
+
+   # Option D: Hourly tip analysis
+   docker exec -it streaming-jobmanager-1 flink run -py /opt/src/job/tip_analysis_job.py
    ```
 
 5. Verify the jobs are running:
@@ -95,6 +101,7 @@ Before running this project, ensure you have the following installed:
   docker exec streaming-postgres-1 psql -U postgres -c "SELECT count(*) FROM processed_events;"
   docker exec streaming-postgres-1 psql -U postgres -c "SELECT count(*) FROM windowed_trip_counts;"
   docker exec streaming-postgres-1 psql -U postgres -c "SELECT count(*) FROM session_results;"
+  docker exec streaming-postgres-1 psql -U postgres -c "SELECT count(*) FROM hourly_tips;"
   ```
 - **Top 3 Trips Query**: Identify the locations with the highest number of trips in a window:
   ```bash
@@ -103,6 +110,10 @@ Before running this project, ensure you have the following installed:
 - **Top Session Query**:
   ```bash
   docker exec -it streaming-postgres-1 psql -U postgres -c "SELECT PULocationID, num_trips, session_start, session_end FROM session_results ORDER BY num_trips DESC LIMIT 1;"
+  ```
+- **Hourly Tip Query**:
+  ```bash
+  docker exec -it streaming-postgres-1 psql -U postgres -c "SELECT window_start, total_tips FROM hourly_tips ORDER BY window_start DESC LIMIT 5;"
   ```
 - **Postgres CLI**: Access the database directly to run custom queries:
   ```bash
@@ -119,7 +130,7 @@ The following steps were taken to resolve issues and successfully launch the str
 
 1.  **Path Correction**: Identified that the Flink job was located at `src/job/` on the host, which maps to `/opt/src/job/` inside the container via the `docker-compose.yaml` volume mapping (`./src/:/opt/src`).
 2.  **Conflict Resolution**: Discovered conflicting containers (`my-postgres` and `redpanda`) running on the default Docker bridge network. These were stopped to allow the project-specific services to bind to the required ports (5432, 9092).
-3.  **Database Initialization**: The Postgres sink requires target tables to exist. Manually initialized schemas for `processed_events`, `windowed_trip_counts`, and `session_results`.
+3.  **Database Initialization**: The Postgres sink requires target tables to exist. Manually initialized schemas for `processed_events`, `windowed_trip_counts`, `session_results`, and `hourly_tips`.
 4.  **Kafka Topic Verification**: Confirmed the `green-trips` topic was present in Redpanda using `rpk topic list`.
 5.  **JSON Serialization Fix**: Encountered `NaN` values in `passenger_count` which caused JSON parsing failures. Resolved by adding `'json.ignore-parse-errors' = 'true'` to all Kafka source table definitions.
 6.  **TaskManager Recovery**: Restarted the TaskManager after it crashed due to the initial database connection failures.
@@ -132,6 +143,7 @@ The following steps were taken to resolve issues and successfully launch the str
   - `assignment_flink_job.py`: Standard data transformation job.
   - `window_job.py`: 5-minute tumbling window aggregation job.
   - `session_window_job.py`: 5-minute gap session window job.
+  - `tip_analysis_job.py`: 1-hour tumbling window tip sum job.
 - `docker-compose.yaml`: Docker services configuration
 - `Dockerfile.flink`: Flink jobmanager Docker image
 - `pyproject.toml`: Project configuration and dependencies
